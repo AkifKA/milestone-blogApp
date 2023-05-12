@@ -6,12 +6,12 @@ import { Form } from "formik";
 import { useSelector } from "react-redux";
 import { object, string } from "yup";
 
+// ? loginScheme yi de Login componentin içinde tanımladık ve buraay import ettik.
 export const loginScheme = object({
-  email: string()
-    .email("Lutfen valid bir email giriniz")
-    .required("Email zorunludur"),
+  email: string().email().required(),
+  username: string().required(),
   password: string()
-    .required("password zorunludur")
+    .required()
     .min(8, "password en az 8 karakter olmalıdır")
     .max(20, "password en fazla 20 karakter olmalıdır")
     .matches(/\d+/, "Password bir sayı içermelidir")
@@ -20,11 +20,24 @@ export const loginScheme = object({
     .matches(/[!,?{}><%&$#£+-.]+/, "Password bir özel karakter içermelidir"),
 });
 
+// ? component çağırıyoruz.Form dan gelen her türlü stateleri,fonksiyonları, özellikleri(values, handleChange) props olarak veriyoruz.buradan açarak gönderiyoruz.diğer tarafta ihtiyacımız olanı alıyoruz.component içinde Form var.
 const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {
   const { loading } = useSelector((state) => state.auth);
   return (
     <Form>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <TextField
+          label="User name"
+          name="username"
+          id="username"
+          type="text"
+          variant="outlined"
+          value={values.username}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          helperText={touched.username && errors.username}
+          error={touched.username && Boolean(errors.username)}
+        />
         <TextField
           label="Email"
           name="email"
@@ -38,7 +51,7 @@ const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {
           error={touched.email && Boolean(errors.email)}
         />
         <TextField
-          label="password"
+          label="Password"
           name="password"
           id="password"
           type="password"
