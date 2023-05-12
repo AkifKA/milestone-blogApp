@@ -3,9 +3,9 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/Lock";
 import { Formik } from "formik";
-import image from "../assets/result.svg";
+// import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
-import RegisterForm, { registerSchema } from "../components/RegisterForm";
+import RegisterForm, { registerSchema } from "../components/auth/RegisterForm";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 
@@ -28,7 +28,7 @@ const Register = () => {
       >
         <Grid item xs={12}>
           <Typography variant="h3" color="primary" align="center">
-            BLOG APP
+            WELCOME YOUR WORLD
           </Typography>
         </Grid>
 
@@ -55,11 +55,12 @@ const Register = () => {
           <Formik
             initialValues={{
               username: "",
-              email: "",
-              image: "",
+              first_name: "",
+              last_name: "",
+              imge: "",
               bio: "",
+              email: "",
               password: "",
-              password2: "",
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
@@ -70,15 +71,15 @@ const Register = () => {
             component={(props) => <RegisterForm {...props} />}
           ></Formik>
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/">Do you have an account?</Link>
+            <Link to="/login">Do you have an account?</Link>
           </Box>
         </Grid>
 
-        <Grid item xs={0} sm={7} md={6}>
+        {/* <Grid item xs={0} sm={7} md={6}>
           <Container>
             <img src={image} alt="" />
           </Container>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );
